@@ -1,1 +1,4 @@
-/mini-cfgdb
+/cfgdb
+*.o
+*.json
+./vscode

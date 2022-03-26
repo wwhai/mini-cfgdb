@@ -13,6 +13,33 @@ API：
  - Dump()：导出数据
  - Count()：计算数据量
  - Version()：当前版本号
+## Demo
+### 文件模式
+```c
+#include <stdio.h>
+#include "cfgdb.h"
+int main(int argc, char const *argv[])
+{
+    CfgDb* db = NewFileDb(1024, MB, "./temp_db");
+    Set(db, "K", "V");
+    unsigned *char value =  Get(db, "K");
+    Remove(db, "K");
+    return 0;
+}
 
-## 其他
-本项目准备做成一个基于内存的框架，只需实现保存的接口即可随时实现保存在任何地方。
+```
+
+### 内存模式
+```c
+#include <stdio.h>
+#include "cfgdb.h"
+int main(int argc, char const *argv[])
+{
+    CfgDb* db = NewMemoryDb(1024, MB);
+    Set(db, "K", "V");
+    unsigned *char value =  Get(db, "K");
+    Remove(db, "K");
+    return 0;
+}
+
+```
