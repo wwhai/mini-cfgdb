@@ -51,5 +51,6 @@ typedef struct
 
 Entry NewEntry(unsigned char k[], unsigned char v[]);
 unsigned char *EncodeEntry(Entry e);
-
+Entry DecodeEntry(unsigned char *bin);
+void ToString(Entry e);
 #endif
