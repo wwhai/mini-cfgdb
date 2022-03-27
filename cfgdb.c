@@ -14,11 +14,11 @@ unsigned char *EncodeEntry(Entry e)
     unsigned char *bin = (unsigned char *)malloc(sizeof(8 + e.key_size + e.value_size));
     int offset = 0;
     // 大端模式
-    memcpy(bin + offset, &e.key_size, UINT_32_SIZE);
-    offset += UINT_32_SIZE;
+    memcpy(bin + offset, &e.key_size, U32_SIZE);
+    offset += U32_SIZE;
     // 大端模式
-    memcpy(bin + offset, &e.value_size, UINT_32_SIZE);
-    offset += UINT_32_SIZE;
+    memcpy(bin + offset, &e.value_size, U32_SIZE);
+    offset += U32_SIZE;
     memcpy(bin + offset, e.key, e.key_size);
     offset += e.key_size;
     memcpy(bin + offset, e.value, e.value_size);
