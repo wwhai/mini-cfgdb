@@ -1,5 +1,5 @@
 cc = gcc
-objects = cfgdb.o main.o 
+objects = cfgdb.o hashmap.o main.o
 cfgdb : ${objects}
 	 ${cc} -o cfgdb ${objects}
 

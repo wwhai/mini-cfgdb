@@ -2,15 +2,19 @@
 #include "cfgdb.h"
 int main(int argc, char const *argv[])
 {
-    unsigned char k[] = "KEY";
-    unsigned char v[] = "Value:1234567890";
-    Entry e = NewEntry(k, v);
-    unsigned char *b = EncodeEntry(e);
-    for (size_t i = 0; i < e.key_size + e.value_size + 8; i++)
-    {
-        printf("%c --> : %04X\n", b[i], b[i]);
-    }
-    Entry e1 = DecodeEntry(b);
-    ToString(e1);
+    CfgDB *db = NewFileDB(1024000, "./test.hex");
+    Byte k1[] = "K1";
+    Byte v1[] = "V1";
+    Set(db, k1, v1);
+    Byte k2[] = "K2";
+    Byte v2[] = "VV2";
+    Set(db, k2, v2);
+    Byte k3[] = "K3";
+    Byte v3[] = "VVV3";
+    Set(db, k3, v3);
+    Byte k4[] = "K4444";
+    Byte v4[] = "VVV44444444444";
+    Set(db, k4, v4);
+    Get(db, k2);
     return 0;
 }
