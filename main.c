@@ -15,6 +15,8 @@ int main(int argc, char const *argv[])
     Byte k4[] = "K4444";
     Byte v4[] = "VVV44444444444";
     Set(db, k4, v4);
+    Get(db, k1);
     Get(db, k2);
+    Get(db, k3);
     return 0;
 }

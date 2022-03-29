@@ -16,6 +16,7 @@
 #define type_size(O) sizeof(O)
 // New
 #define new_object(T) (T *)malloc(sizeof(T))
+#define new_objects(T, N) (T *)malloc(N * sizeof(T))
 // byte
 typedef unsigned char Byte;
 // uint8
@@ -24,13 +25,26 @@ typedef Byte Uint8;
 typedef unsigned short Uint16;
 // uint32
 typedef unsigned int Uint32;
+// uint64
+typedef unsigned long Uint64;
+// Index
+typedef struct
+{
+    time_t ts;
+    Byte *key;
+    size_t file_id;
+    size_t key_size;
+    size_t value_size;
+    size_t value_pos;
+} DbIndex;
+
 // Db
 typedef struct
 {
-    unsigned int offset;   // Offset
-    Byte *bucket;          // Data Bucket
-    FILE *dbFile;          // Db file
-    struct hashmap_s *map; // Index Map
+    unsigned int offset; // Offset
+    DbIndex *bucket;     // Index
+    size_t bucket_size;
+    char *db_path; // Db file
 } CfgDB;
 //
 CfgDB *NewFileDB(int bucket_size, char path[]);
@@ -41,18 +55,10 @@ int Remove(CfgDB *db, Byte *k);
 int Flush(CfgDB *db);
 int Count(CfgDB *db);
 Byte *Version();
-// Index
-typedef struct
-{
-    time_t ts;
-    Byte *key;
-    size_t file_id;
-    size_t key_size;
-    size_t value_pos;
-} DbIndex;
 DbIndex *NewDbIndex(
     time_t ts,
     Byte key[],
+    Byte value[],
     size_t file_id,
     size_t value_pos);
 // Data Entry
@@ -70,4 +76,6 @@ Entry *NewEntry(Byte k[], Byte v[]);
 Byte *EncodeEntry(Entry e);
 Entry DecodeEntry(Byte *bin);
 void ToString(Entry e);
+void PrintBin(Byte *bin, size_t size);
+unsigned long hash(unsigned long CAPACITY, char *s);
 #endif
